@@ -101,7 +101,7 @@ $$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
 
 *Figure 3: Multi-Head Attention Matrix Breakdown and Re-projection*
 
-When we stack our sequence tokens together, they form an input matrix of size (seq, d_model$), which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $(512, 512)$ global projection matrices ($W_Q$, $W_K$, $W_V$). The resulting matrices (Q’, K’, V’) are sliced into h=4 parallel heads:
+When we stack our sequence tokens together, they form an input matrix of size $(\text{seq}, d_{\text{model}})$, which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $(512, 512)$ global projection matrices ($W_Q$, $W_K$, $W_V$). The resulting matrices (Q’, K’, V’) are sliced into h=4 parallel heads:
 
 $$d_k = \frac{d_{\text{model}}}{h} = \frac{512}{4} = 128$$
 
@@ -113,7 +113,7 @@ To pass this to the next neural network layer, we concatenate the 4 head columns
 
 Because we are working in a massive 128-dimensional space, calculating the dot products ($(Q \times K^T)$) pushes our values into extreme, massive numbers. When these giant numbers hit the softmax function, it gets pushed into its flattest regions, forcefully yielding an extreme output (1.0 for the highest score, 0.0 for everything else).
 
-Mathematically, the gradient of a flat softmax curve is virtually zero. During training, backpropagation hits a wall, gradients vanish, and the model completely stops learning. Dividing by $$\sqrt{128}$$ scales the variance back down to 1, keeping the inputs to softmax small, the attention maps smooth, and the gradients healthy.
+Mathematically, the gradient of a flat softmax curve is virtually zero. During training, backpropagation hits a wall, gradients vanish, and the model completely stops learning. Dividing by $\sqrt{128}$ scales the variance back down to 1, keeping the inputs to softmax small, the attention maps smooth, and the gradients healthy.
 
 ### Layer Normalization (Add & Norm)
 
@@ -121,9 +121,9 @@ Right after adding our residual/skip connection, the flowchart hits *Layer Norma
 
 $$\text{LayerNorm}(x) = \gamma \left( \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}} \right) + \beta$$
 
-Unlike batch normalization, LayerNorm isolates one word at a time and calculates the mean ($$\mu$$) and variance ($$\sigma^2$$) across all 512 channels of that single word’s embedding vector. It standardizes the vector, forcing the features of the word “cat” to reset to a stable baseline with a mean of 0 and variance of 1.
+Unlike batch normalization, LayerNorm isolates one word at a time and calculates the mean ($\mu$) and variance ($\sigma^2$) across all 512 channels of that single word’s embedding vector. It standardizes the vector, forcing the features of the word “cat” to reset to a stable baseline with a mean of 0 and variance of 1.
 
-To keep the model from being too restricted, LayerNorm introduces two highly adjustable, learnable parameters: Gamma ($$\gamma$$) for scaling and Beta ($$\beta$$) for shifting. The Transformer tweaks these through backpropagation, maintaining numerical stability across the architecture while re-introducing precise, controlled fluctuations where it needs them to master context.
+To keep the model from being too restricted, LayerNorm introduces two highly adjustable, learnable parameters: Gamma ($\gamma$) for scaling and Beta ($\beta$) for shifting. The Transformer tweaks these through backpropagation, maintaining numerical stability across the architecture while re-introducing precise, controlled fluctuations where it needs them to master context.
 
 ---
 
