@@ -1,7 +1,7 @@
 # Personal Portfolio
 ---
 
-### This repository hosts my personal portfolio — check it out here: [https://w-ok-e.github.io/](https://w-ok-e.github.io/)
+### This repository hosts my personal portfolio — check it out here: [https://aryan241.github.io/](https://aryan241.github.io/)
 
 ---
 
