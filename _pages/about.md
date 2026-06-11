@@ -7,17 +7,13 @@ redirect_from:
   - /about.html
 ---
 
-Hey there! I'm a second year Computer Sxcience and Engineering student at Manipal Institute of Technology, Manipal, Karnataka. Machine Learning and AI in general is what I'm deeply passionate about. Currently in the process of breaking the ice and exploring as much as I can across different fields of Computer Science, cuz what's fun without a little randomness.
+Hey there! I'm a second year Computer Science and Engineering student at Manipal Institute of Technology, Manipal, Karnataka. Machine Learning and AI in general is what I'm deeply passionate about. Currently in the process of breaking the ice and exploring as much as I can across different fields of Computer Science, cuz what's fun without a little randomness.
 
 
 
 
 
 
----
-
-> ### 🔍 Hidden Directory Found
-> You've reached the absolute bottom of this page. Please return to the [top of the page](/) before you accidentally fall off the edge of my CSS layout.
 
 
 
