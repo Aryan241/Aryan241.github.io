@@ -5,4 +5,4 @@
 
 ---
 
-Site designed using the awesome jekyll theme - [academicpages](https://academicpages.github.io/)
+Site designed using the nerdy jekyll theme - [academicpages](https://academicpages.github.io/)
