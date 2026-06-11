@@ -71,9 +71,9 @@ $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)
 
 Words “talk” to one another by mapping their embeddings into three distinct roles:
 
-* **Query (Q):** A question that each word embedding asks. For example, a noun like “Cat” might ask, *“Is there an adjective in front of me?”*. It is calculated by multiplying the word embedding by a trainable weight matrix $W_Q.$ This projects it into a smaller dimensional space (e.g., $d_k$ = 128).
-* **Key (K):** The bridge that answers a query when they closely align. It is computed by multiplying the embedding by a trainable weight matrix $W_K.$
-* **Value (V):** The actual contextual content added to the word embedding if a key matches a query. It is calculated using the weight matrix $W_V.$
+* **Query (Q):** A question that each word embedding asks. For example, a noun like “Cat” might ask, *“Is there an adjective in front of me?”*. It is calculated by multiplying the word embedding by a trainable weight matrix $W_Q$. This projects it into a smaller dimensional space (e.g., $d_k = 128$).
+* **Key (K):** The bridge that answers a query when they closely align. It is computed by multiplying the embedding by a trainable weight matrix $W_K$.
+* **Value (V):** The actual contextual content added to the word embedding if a key matches a query. It is calculated using the weight matrix $W_V$.
 
 To measure how well a key matches a query, we take the dot product between each possible key-query pair to create the *Attention Pattern*. Higher dot products correspond to higher correlations.
 
