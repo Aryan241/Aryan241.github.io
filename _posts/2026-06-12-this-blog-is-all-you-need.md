@@ -2,10 +2,10 @@
 title: "This Blog Is All You Need!"
 date: 2026-06-12
 permalink: /blog/2026/06/this-blog-is-all-you-need/
-mathjax: true
 tags:
   - machine learning
   - transformers
+mathjax: true
 ---
 
 With the use of Large Language Models (LLMs) at an all-time high, you must have sat and wondered about what exactly is going on inside them, and how exactly they generate text one word after another. An LLM is essentially a big, complex mathematical function. Instead of predicting a single next word with absolute certainty, it assigns a probability to every possible next word. To make the dialogue sound natural, the system occasionally picks less likely words at random. This means that even though the underlying mathematics are deterministic, the same prompt can yield a completely different answer every time.
@@ -112,11 +112,11 @@ To pass this to the next neural network layer, we concatenate the 4 head columns
 
 ### Why the heck do we divide by $\sqrt{d_k}$?
 
-Because we are working in a massive 128-dimensional space, calculating the dot products ($(Q \times K^T)$) pushes our values into extreme, massive numbers. When these giant numbers hit the softmax function, it gets pushed into its flattest regions, forcefully yielding an extreme output (1.0 for the highest score, 0.0 for everything else).
+Because we are working in a massive 128-dimensional space, calculating the dot products $Q \times K^T$ pushes our values into extreme, massive numbers. When these giant numbers hit the softmax function, it gets pushed into its flattest regions, forcefully yielding an extreme output (1.0 for the highest score, 0.0 for everything else).
 
 Mathematically, the gradient of a flat softmax curve is virtually zero. During training, backpropagation hits a wall, gradients vanish, and the model completely stops learning. Dividing by $\sqrt{128}$ scales the variance back down to 1, keeping the inputs to softmax small, the attention maps smooth, and the gradients healthy.
 
-### Layer Normalization (Add & Norm)
+### Layer Normalization (Add &amp; Norm)
 
 Right after adding our residual/skip connection, the flowchart hits *Layer Normalization (LayerNorm)*. This step rescales our numerical values to prevent them from drifting out of control as they move deeper into the network:
 
@@ -173,7 +173,7 @@ While training happens all at once, inference (prediction) is a gradual, token-b
 2. The decoder, however, must start completely blind, receiving only the `<SOS>` token padded to the sequence length.
 3. **Time Step 1:** The decoder processes this single token alongside the encoder's data, applies the softmax layer to the resulting logits, and selects the token with the highest probability (`"ti"`).
 4. **Time Step 2:** The model appends the generated word back to the decoder's input, feeding `<SOS> ti` back into the loop to generate `"amo"`.
-5. This loop repeats sequentially (`<SOS> ti amo` $$\rightarrow$$ `"molto"`) until the model predicts the `<EOS>` token, signaling it to stop.
+5. This loop repeats sequentially (`<SOS> ti amo` → `"molto"`) until the model predicts the `<EOS>` token, signaling it to stop.
 
 ### Decoding Strategies
 
