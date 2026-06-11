@@ -2,6 +2,7 @@
 title: "This Blog Is All You Need!"
 date: 2026-06-12
 permalink: /blog/2026/06/this-blog-is-all-you-need/
+mathjax: true
 tags:
   - machine learning
   - transformers
