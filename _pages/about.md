@@ -17,7 +17,7 @@ Hey there! I'm a second year Computer Sxcience and Engineering student at Manipa
 ---
 
 > ### 🔍 Hidden Directory Found
-> You've reached the absolute bottom of this page. If you were looking for my motivation or the solution to that one compile error from last Tuesday's lab, it is not here. Please return to the [top of the page](/) before you accidentally fall off the edge of my CSS layout.
+> You've reached the absolute bottom of this page. Please return to the [top of the page](/) before you accidentally fall off the edge of my CSS layout.
 
 
 
