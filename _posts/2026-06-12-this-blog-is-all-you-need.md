@@ -79,7 +79,7 @@ To measure how well a key matches a query, we take the dot product between each 
 
 ![Attention Pattern Matrix](/images/attention_pattern.png)
 
-*Figure 2: Softmax-normalized attention scores summing up to 1 across rows*
+*Figure 2: Attention Pattern*
 
 These attention scores are multiplied by the value vectors and added column-wise to compute the delta embeddings, which are then combined with the original embeddings to yield context-rich vectors. This entire loop constitutes a *Single Head of Attention*.
 
@@ -99,7 +99,7 @@ $$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
 
 ![Multi-Head Attention Workflow](/images/mha_workflow.jpg)
 
-*Figure 3: Multi-Head Attention Matrix Breakdown and Re-projection*
+*Figure 3: MH-A WorkFlow*
 
 When we stack our sequence tokens together, they form an input matrix of size $(\text{seq}, d_{\text{model}})$, which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $(512, 512)$ global projection matrices ($W_Q$ , $W_K$ , $W_V$ ). The resulting matrices (Q’, K’, V’) are sliced into h=4 parallel heads:
 
