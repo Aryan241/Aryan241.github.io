@@ -123,7 +123,7 @@ $$\text{LayerNorm}(x) = \gamma \left( \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}
 
 Unlike batch normalization, LayerNorm isolates one word at a time and calculates the mean ($$\mu$$) and variance ($$\sigma^2$$) across all 512 channels of that single word’s embedding vector. It standardizes the vector, forcing the features of the word “cat” to reset to a stable baseline with a mean of 0 and variance of 1.
 
-To keep the model from being too restricted, LayerNorm introduces two highly adjustable, learnable parameters—Gamma ($$\gamma$$) for scaling and Beta ($$\beta$$) for shifting. The Transformer tweaks these through backpropagation, maintaining numerical stability across the architecture while re-introducing precise, controlled fluctuations where it needs them to master context.
+To keep the model from being too restricted, LayerNorm introduces two highly adjustable, learnable parameters: Gamma ($$\gamma$$) for scaling and Beta ($$\beta$$) for shifting. The Transformer tweaks these through backpropagation, maintaining numerical stability across the architecture while re-introducing precise, controlled fluctuations where it needs them to master context.
 
 ---
 
@@ -177,7 +177,7 @@ While training happens all at once, inference (prediction) is a gradual, token-b
 ### Decoding Strategies
 
 * **Greedy Strategy:** This baseline approach of always picking the single highest probability score at each step is efficient but can be short-sighted.
-* **Beam Search:** To achieve better generation quality, advanced models use Beam Search. Instead of blindly picking a single word, it keeps track of the top $B$ (beam width) most probable word combinations at every single step, systematically pruning away weaker sentence structures while preserving the most contextually accurate global paths.
+* **Beam Search:** To achieve better generation quality, advanced models use Beam Search. Instead of blindly picking a single word, it keeps track of the top B (beam width) most probable word combinations at every single step, systematically reducing weaker sentence structures while preserving the most contextually accurate paths.
 
 ---
 
