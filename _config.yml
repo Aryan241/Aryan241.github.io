@@ -23,8 +23,8 @@ repository               : "academicpages/academicpages.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
-  name             : "rvyn"
+  avatar           : "my_profile.webp"
+  name             : "Aryan Achary"
   pronouns         : "he/him"  
   bio              : "i don't think therefore i don't am."
   location         : "Manipal, Karnataka"
