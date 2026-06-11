@@ -101,7 +101,7 @@ $$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
 
 *Figure 3: Multi-Head Attention Matrix Breakdown and Re-projection*
 
-When we stack our sequence tokens together, they form an input matrix of size $(\text{seq}, d_{\text{model}})$, which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $(512, 512)$ global projection matrices ($W_Q$, $W_K$, $W_V$). The resulting matrices (Q’, K’, V’) are sliced into h=4 parallel heads:
+When we stack our sequence tokens together, they form an input matrix of size $(\text{seq}, d_{\text{model}})$, which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $(512, 512)$ global projection matrices ($W_Q$ , $W_K$ , $W_V$ ). The resulting matrices (Q’, K’, V’) are sliced into h=4 parallel heads:
 
 $$d_k = \frac{d_{\text{model}}}{h} = \frac{512}{4} = 128$$
 
