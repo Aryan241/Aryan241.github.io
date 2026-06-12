@@ -172,11 +172,11 @@ While training happens all at once, inference (prediction) is a gradual, token-b
 
 *Figure 5: Inference Flowchart*
 
-1. When you ask the model to translate in real-time, the encoder runs *exactly once* to map out the English sentence; since the source text never changes, we save compute by freezing this output.
-2. The decoder, however, must start completely blind, receiving only the `<SOS>` token padded to the sequence length.
-3. **Time Step 1:** The decoder processes this single token alongside the encoder's data, applies the softmax layer to the resulting logits, and selects the token with the highest probability (`"ti"`).
-4. **Time Step 2:** The model appends the generated word back to the decoder's input, feeding `<SOS> ti` back into the loop to generate `"amo"`.
-5. This loop repeats sequentially (`<SOS> ti amo` → `"molto"`) until the model predicts the `<EOS>` token, signaling it to stop.
+* When you ask the model to translate in real-time, the encoder runs *exactly once* to map out the English sentence; since the source text never changes, we save compute by freezing this output.
+* The decoder, however, must start completely blind, receiving only the `<SOS>` token padded to the sequence length.
+* **Time Step 1:** The decoder processes this single token alongside the encoder's data, applies the softmax layer to the resulting logits, and selects the token with the highest probability (`"ti"`).
+* **Time Step 2:** The model appends the generated word back to the decoder's input, feeding `<SOS> ti` back into the loop to generate `"amo"`.
+* This loop repeats sequentially (`<SOS> ti amo` → `"molto"`) until the model predicts the `<EOS>` token, signaling it to stop.
 
 ### Decoding Strategies
 
