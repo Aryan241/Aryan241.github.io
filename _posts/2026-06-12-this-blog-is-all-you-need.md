@@ -8,13 +8,13 @@ tags:
 mathjax: true
 ---
 
-With the use of Large Language Models (LLMs) at an all-time high, you must have sat and wondered about what exactly is going on inside them, and how exactly they generate text one word after another. An LLM is essentially a big, complex mathematical function. Instead of predicting a single next word with absolute certainty, it assigns a probability to every possible next word. To make the dialogue sound natural, the system occasionally picks less likely words at random. This means that even though the underlying mathematics are deterministic, the same prompt can yield a completely different answer every time.
+With the use of Large Language Models (LLMs) at an all-time high, you must have sat and wondered about what exactly is going on inside them, and how exactly they generate text one word after another. An LLM is essentially a mathematical function, a big and complex one at that. Instead of predicting a single next word with absolute certainty, it assigns a probability to every possible next word. To make the dialogue sound natural, the system occasionally picks less likely words at random. This means that even though the underlying mathematics are deterministic, the same prompt can yield a completely different answer every time.
 
 ### How do these models learn to predict the next word so accurately?
 
-They do it by processing a huge chunk of data from the internet. You can think of this training process as tuning the dials on a massive machine. The behavior of an LLM is entirely governed by continuous numerical values called *parameters (or weights)*. Changing these weights changes the word probabilities. What makes these models "large" is that they contain hundreds of billions of these parameters.
+Well, they do it by processing a huge chunk of data from the internet. You can think of this training process as tuning the dials on a massive machine. The behavior of an LLM is entirely governed by continuous numerical values called *parameters (or weights)*. Changing these weights changes the word probabilities. What makes these models "large" is that they contain hundreds of billions of these parameters.
 
-Nobody sets these dials by hand. The process follows a specific lifecycle:
+Nobody sets these dials by hand. The process looks somewhat like this:
 
 1. **Random Initialization:** The parameters start completely random, outputting pure gibberish.
 2. **The Feedback Loop:** The model is fed trillions of training examples (ranging from a few words to thousands). It tries to predict the final word of a sequence.
@@ -24,11 +24,11 @@ This process is called *pre-training*. Because the goal of mimicking internet te
 
 ### The Shift to Transformers
 
-The sheer scale of computation required for this training is mind-boggling, which was only possible because of GPUs. Before transformers existed, the standard way to process a sentence was with a *Recurrent Neural Network (RNN)*. An RNN reads one word at a time, left to right, updating a hidden state as it goes.
+As you must've figured out by now, the sheer scale of computation required for this training is mind-boggling, which was only possible because of GPUs. Before transformers existed, the standard way to process a sentence was with a *Recurrent Neural Network (RNN)*. An RNN reads one word at a time, left to right, updating a hidden state as it goes.
 
-This created a real problem for anything involving *long-range dependencies*. A pronoun at position 40 might refer to a noun at position 5. An RNN had to carry that noun's meaning through 35 intermediate steps, each one slightly smearing the signal. Furthermore, the gradients during training had the same problem in reverse, they either vanished to nothing or exploded.
+This created a real problem for anything involving *long-range dependencies*. A pronoun at position 40 might refer to a noun at position 5. An RNN had to carry that noun's meaning through 35 intermediate steps, each one slightly smearing the signal. The gradients during training had the same problem in reverse, they either vanished to nothing or exploded.
 
-Everything changed in 2017 when a team at Google introduced the *Transformer architecture*. Instead of reading text from start to finish, Transformers soak in the entire passage all at once, in parallel. Instead of passing information through a chain, attention lets every word look directly at every other word all at once, in a single operation.
+Everything changed in 2017 when a team at Google introduced the *Transformer architecture*. Instead of reading text from start to finish, Transformers soak in the entire passage all at once, in parallel. Instead of passing information through a chain, attention lets every word look directly at every other word all at once, in a single operation. So what exactly is a transformer and what is the attention mechanism inside it? This blog covers exactly that! So suit up for a deep dive into one of the most revolutionary papers in the history of Neural Networks.
 
 ---
 
@@ -46,7 +46,7 @@ Follow along the architecture while I explain what each component does. The left
 
 ### 1. Input Embedding
 
-Any sentence fed into the architecture is first assigned an *Input ID*, which is a number corresponding to the position of that specific token in the vocabulary.
+Any sentence fed into the architecture is first assigned an *Input ID*, which is a number corresponding to the position of that specific token in the vocabulary. Tokens are not necessarily entire words, but for the ease of understanding, we'll assume each token to be a word.
 
 For example, in the sentence *"Your Cat Is A Lovely Cat"*, every single word is assigned a scalar input ID (say 105 or 6089), pointing to its position in the vocabulary. Each word is further represented as an *Embedding Vector*. Think of these vectors lying in a high-dimensional space, where the directions they settle in carry semantic meaning. For instance, words like "tower", "lighthouse", and "tall" will lie near each other. By common practice, we define the embedding vector size as:
 
@@ -54,7 +54,7 @@ $$d_{\text{model}} = 512$$
 
 ### 2. Positional Encoding
 
-Apart from representing the semantic meaning of a word, the model needs to know its structural position in the sentence—which words are close and which are far away. Because Transformers process everything in parallel, we must inject this sequence order explicitly via a learned or fixed *Positional Encoding*.
+Apart from representing the semantic meaning of a word, the model needs to know its structural position in the sentence and have a sense of which words are close and which are far away. Because Transformers process everything in parallel, we must introduce this sequence order via a learned or fixed *Positional Encoding*.
 
 We use sine and cosine functions at different frequencies to compute the position embedding vector (also of size 512):
 
@@ -70,13 +70,14 @@ Self-attention allows the model to relate words to each other, letting them inte
 
 $$\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$
 
-Words "talk" to one another by mapping their embeddings into three distinct roles:
+But how exactly do words “talk” with one another? This happens through the transformer assigning every single word three distinct roles : Queries, Keys and Values.
 
-* **Query (Q):** A question that each word embedding asks. For example, a noun like "Cat" might ask, *"Is there an adjective in front of me?"*. It is calculated by multiplying the word embedding by a trainable weight matrix $$W_Q$$. This projects it into a smaller dimensional space (e.g., $$d_k = 128$$).
-* **Key (K):** The bridge that answers a query when they closely align. It is computed by multiplying the embedding by a trainable weight matrix $$W_K$$.
-* **Value (V):** The actual contextual content added to the word embedding if a key matches a query. It is calculated using the weight matrix $$W_V$$.
+* **Query (Q):** We can think of a query as question that each word embedding asks. For example, a noun like "Cat" might ask, *"Is there an adjective in front of me?"* and this question is someow embedded into its query vector. It is calculated by multiplying the word embedding by a trainable weight matrix $$W_Q$$. This projects it into a smaller dimensional space (e.g., $$d_k = 128$$).
+* **Key (K):** The bridge that answers a query when they closely align. It is computed by multiplying the embedding by a trainable weight matrix $$W_K$$. You can think of the keys matching the queries when they closely align with each other or let’s say when you see the key answering the query.
 
-To measure how well a key matches a query, we take the dot product between each possible key-query pair to create the *Attention Pattern*. Higher dot products correspond to higher correlations.
+* **Value (V):** To calculate context, every word's embedding is projected into a "Value" vector using the weight matrix $$W_V$$. When a Query from one word matches a Key from another, it determines an attention weight. This weight dictates how much of that word's Value vector is blended into a final context vector. This combined context is what ultimately updates the target word's representation, allowing its meaning to dynamically shift based on the surrounding text.
+
+To measure how well a key matches a query, we take the dot product between each possible key-query pair to create the *Attention Pattern*. Higher dot products correspond to higher correlation and vice-versa. These dot products are then divided by $$\sqrt{d_k}$$ (the reason for which I'll explain shortly). Finally, a softmax operation is applied to normalize the values so they lie between 0 and 1 and sum up to 1, essentially creating a probability distribution.
 
 ![Attention Pattern Matrix](/images/attention_pattern.png)
 
@@ -86,7 +87,7 @@ These attention scores are multiplied by the value vectors and added column-wise
 
 ### Why Multi-Head Attention?
 
-Language is too complex for a single question. If the word "Cat" looks at a sentence, it needs to ask multiple questions simultaneously:
+In the setup we just discussed, each word gets exactly one Query, one Key, and one Value. But, Language is too complex for a single question. If the word "Cat" looks at a sentence, it needs to ask multiple questions simultaneously:
 
 * *"Where is the adjective describing me?"*
 * *"What verb am I performing?"*
@@ -102,13 +103,15 @@ $$\text{head}_i = \text{Attention}(QW_i^Q, KW_i^K, VW_i^V)$$
 
 *Figure 3: MH-A WorkFlow*
 
-When we stack our sequence tokens together, they form an input matrix of size $$(\text{seq},\, d_{\text{model}})$$, which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $$(512 \times 512)$$ global projection matrices $$W_Q$$, $$W_K$$, $$W_V$$. The resulting matrices (Q', K', V') are sliced into h=4 parallel heads:
+In the single-head attention model, we discussed about taking the embeddings of each word.
+When we stack these sequence tokens together, they form an input matrix of size $$(\text{seq},\, d_{\text{model}})$$, which is (6, 512) for our sample sentence. Instead of performing a small projection, the input matrix is multiplied by massive $$(512 \times 512)$$ global projection matrices $$W_Q$$, $$W_K$$, $$W_V$$. The resulting matrices (Q', K', V') are sliced into h=4 parallel heads:
 
 $$d_k = \frac{d_{\text{model}}}{h} = \frac{512}{4} = 128$$
 
-This gives us 4 unique heads isolating their own semantic spaces to track distinct properties simultaneously.
+This perfectly matches the 128-dimensional space we set up in our single-head model. But now, because we have 4 slices, we have 4 completely unique sets of queries, keys, and values running in parallel. These heads isolate their own different space where words, say “Cat” can ask different sets of questions like *“Is there an adjective in front of me?”* or *“What action/verb am I doing?”*.
 
-To pass this to the next neural network layer, we concatenate the 4 head columns back into a single unified matrix $$H$$ of size (6, 512). To let these isolated context blocks interact, we perform a final multiplication with an *Output Projection Matrix* $$W^O$$ of size $$(512 \times 512)$$. The final embedding for the word "cat" is no longer a static dictionary vector; it is a context-aware 512-dimensional vector that simultaneously knows it is "lovely", belongs to "your", and links to the structural relationships in the sentence.
+
+To pass this to the next neural network layer, we concatenate the 4 head columns back into a single unified matrix $$H$$ , which brings us back to our original size of (6, 512). Right now, the data inside matrix H is sitting in isolated blocks next to each other, say [Adjective Context | Verb Context | Pronoun Context ]. They haven’t actually interacted with one another. To let these isolated context blocks interact, we perform a final multiplication with an *Output Projection Matrix* $$W^O$$ of size $$(512 \times 512)$$. The final embedding for the word "cat" is no longer a static dictionary vector; it is a context-aware 512-dimensional vector that simultaneously knows it is "lovely", belongs to "your", and links to the structural relationships in the sentence.
 
 ### Why the heck do we divide by $$\sqrt{d_k}$$?
 
@@ -124,7 +127,7 @@ $$\text{LayerNorm}(x) = \gamma \left( \frac{x - \mu}{\sqrt{\sigma^2 + \epsilon}}
 
 Unlike batch normalization, LayerNorm isolates one word at a time and calculates the mean ($$\mu$$) and variance ($$\sigma^2$$) across all 512 channels of that single word's embedding vector. It standardizes the vector, forcing the features of the word "cat" to reset to a stable baseline with a mean of 0 and variance of 1.
 
-To keep the model from being too restricted, LayerNorm introduces two highly adjustable, learnable parameters: Gamma ($$\gamma$$) for scaling and Beta ($$\beta$$) for shifting. The Transformer tweaks these through backpropagation, maintaining numerical stability across the architecture while re-introducing precise, controlled fluctuations where it needs them to master context.
+To keep the model from being too restricted, LayerNorm introduces two highly adjustable, learnable parameters: Gamma ($$\gamma$$) for scaling and Beta ($$\beta$$) for shifting. The Transformer tweaks these through backpropagation, maintaining numerical stability across the architecture while re-introducing precise, controlled fluctuations where it needs them.
 
 ---
 
