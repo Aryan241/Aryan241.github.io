@@ -11,7 +11,7 @@ I am a second-year B.Tech student in Computer Science and Engineering at the Man
 
 Research interests
 ------
-- 3D computer vision
+- Computer vision
 - 3D reconstruction
 - Trustworthy and privacy-aware AI
 
