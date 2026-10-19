@@ -13,6 +13,7 @@ redirect_from:
 
 Education
 ======
+
 <table>
   <thead>
     <tr><th>Qualification</th><th>Institution</th><th>Year</th><th>Score</th></tr>
