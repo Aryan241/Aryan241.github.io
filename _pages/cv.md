@@ -13,11 +13,16 @@ redirect_from:
 
 Education
 ======
-| Qualification | Institution | Year | Score |
-|---|---|---|---|
-| B.Tech (CSE) | Manipal Institute of Technology, MAHE | 2025–2029 (expected) | CGPA 8.49 (after 2 semesters) |
-| Class XII (CBSE) | Dalmia Vidya Mandir, Rajgangpur | 2025 | 92% |
-| Class X (CBSE) | Dalmia Vidya Mandir, Rajgangpur | 2023 | 97.8% |
+<table>
+  <thead>
+    <tr><th>Qualification</th><th>Institution</th><th>Year</th><th>Score</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>B.Tech (CSE)</td><td>Manipal Institute of Technology, MAHE</td><td>2025–2029 (expected)</td><td>CGPA 8.49 (after 2 semesters)</td></tr>
+    <tr><td>Class XII (CBSE)</td><td>Dalmia Vidya Mandir, Rajgangpur</td><td>2025</td><td>92%</td></tr>
+    <tr><td>Class X (CBSE)</td><td>Dalmia Vidya Mandir, Rajgangpur</td><td>2023</td><td>97.8%</td></tr>
+  </tbody>
+</table>
 
 Research
 ======
