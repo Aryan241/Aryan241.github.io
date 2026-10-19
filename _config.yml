@@ -12,11 +12,11 @@ site_theme               : "default" # The available themes options are "default
 title                    : "Aryan Achary"
 title_separator          : "-"
 name                     : &name "Aryan Achary"
-description              : &description "Personal Academic Website"   # Update this with a general description of your site, this is the default if not overridden by a page
+description              : &description "Aryan Achary: B.Tech CSE student at MIT Manipal working on 3D computer vision"   # Update this with a general description of your site, this is the default if not overridden by a page
 url                      : https://aryan241.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "academicpages/academicpages.github.io"
+repository               : "Aryan241/Aryan241.github.io"
 
 # Site Author - The following control what appear as part of the author content on the side bar.
 #               If a field is blank the icon and link will not appear, otherwise it will be shown.
@@ -26,9 +26,9 @@ author:
   avatar           : "my_profile.webp"
   name             : "Aryan Achary"
   pronouns         : "he/him"  
-  bio              : "i do not think therefore i do not am."
+  bio              : "B.Tech CSE student at MIT Manipal. 3D computer vision: Gaussian splatting, segmentation, privacy."
   location         : "Manipal, Karnataka"
-  #employer         : "Red Brick University"
+  employer         : "Manipal Institute of Technology"
   #uri              : # URL
   email            : "aryanachary77@gmail.com" 
 
