@@ -1,12 +1,9 @@
 ---
 layout: archive
-title: "Research and projects"
+title: "Research"
 permalink: /research/
 author_profile: true
 ---
-
-Research
-======
 
 ### Auditing private-detail removal in 3D Gaussian Splatting
 *Research proposal, AAAI-27 Undergraduate Consortium (submitted, decision pending), 2026*
