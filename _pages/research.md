@@ -25,7 +25,7 @@ Projects
 ### Training-free distractor removal for 3D Gaussian Splatting
 *Independent project, 2026 · [code](https://github.com/Aryan241/Clean-Splate)*
 
-Cleans an already-trained scene without retraining. Grounding DINO and SAM 2 produce text-prompted masks across the capture, and each Gaussian is kept or pruned by a multi-view vote on where its centre projects, with a per-scene threshold. On 12 Nerfbusters scenes: 46–94% smaller files and higher PSNR inside the object mask on 11 (measured on 3 sampled training views per scene, not held-out views). The cleanup step takes 1.5–17 s and under 350 MB of memory per scene on a laptop.
+Cleans an already-trained scene without retraining. Grounding DINO and SAM 2 produce text-prompted masks across the capture, and each Gaussian is kept or pruned by a multi-view vote on where its centre projects. On 12 Nerfbusters scenes: 46–94% smaller files and higher PSNR inside the object mask on 11 (measured on 3 sampled training views per scene, not held-out views). The cleanup step takes 1.5–17 s and under 350 MB of memory per scene on a laptop.
 
 ### Single-image height estimation from aerial imagery
 *Smart India Hackathon 2026, ISRO/SAC problem statement, team project · [code](https://github.com/Aryan241/Heimdall)*
